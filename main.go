@@ -5,6 +5,9 @@ import (
 	"fmt"
 	"io/ioutil"
 	"net/http"
+	"os"
+
+	"github.com/joho/godotenv"
 )
 
 // Weather structure
@@ -36,14 +39,25 @@ type Weather struct {
 }
 
 func main() {
+
+	// Load env file
+	err := godotenv.Load()
+	if err != nil {
+		panic(err)
+	}
+
+	// Get env file
+	rapidAPIKey := os.Getenv("RAPID_API_KEY")
+	rapidAPIHost := os.Getenv("RAPID_API_HOST")
+
 	url := "https://weatherapi-com.p.rapidapi.com/forecast.json?q=Indonesia&days=3"
 	req, err := http.NewRequest("GET", url, nil)
 	if err != nil {
 		panic(err)
 	}
 
-	req.Header.Add("X-RapidAPI-Key", "9a5b36807dmshf74037b8f27721ep1dac41jsnf4fe5059a1f2")
-	req.Header.Add("X-RapidAPI-Host", "weatherapi-com.p.rapidapi.com")
+	req.Header.Add("X-RapidAPI-Key", rapidAPIKey)
+	req.Header.Add("X-RapidAPI-Host", rapidAPIHost)
 
 	client := &http.Client{}
 	res, err := client.Do(req)
