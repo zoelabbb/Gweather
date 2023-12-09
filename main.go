@@ -6,36 +6,37 @@ import (
 	"io/ioutil"
 	"net/http"
 	"os"
+	"time"
 
+	"github.com/fatih/color"
 	"github.com/joho/godotenv"
 )
 
 // Weather structure
 type Weather struct {
 	Location struct {
-		Name string `json:"name"`
+		Name    string `json:"name"`
 		Country string `json:"country"`
-		Region string `json:"region"`
+		Region  string `json:"region"`
 	} `json:"location"`
 	Current struct {
-		TempC float64 `json:"temp_c"`
+		TempC     float64 `json:"temp_c"`
 		Condition struct {
 			Text string `json:"text"`
-			Icon string `json:"icon"`
-			Code int `json:"code"`
-		}`json:"condition"`
+		} `json:"condition"`
 	} `json:"current"`
 	Forecast struct {
 		Forecastday []struct {
-			Day struct {
+			Hour []struct {
+				TimeEpoch int     `json:"time_epoch"`
+				TempC     float64 `json:"temp_c"`
 				Condition struct {
 					Text string `json:"text"`
-					Icon string `json:"icon"`
-					Code int `json:"code"`
 				} `json:"condition"`
-			} `json:"day"`
+				ChanceOfRain float64 `json:"chance_of_rain"`
+			} `json:"hour"`
 		} `json:"forecastday"`
-	}`json:"forecast"`
+	} `json:"forecast"`
 }
 
 func main() {
@@ -50,7 +51,12 @@ func main() {
 	rapidAPIKey := os.Getenv("RAPID_API_KEY")
 	rapidAPIHost := os.Getenv("RAPID_API_HOST")
 
-	url := "https://weatherapi-com.p.rapidapi.com/forecast.json?q=Indonesia&days=3"
+	q := "Denpasar"
+	if len(os.Args) >= 2 {
+		q = os.Args[1]
+	}
+
+	url := "https://weatherapi-com.p.rapidapi.com/forecast.json?q=" + q + "&days=3"
 	req, err := http.NewRequest("GET", url, nil)
 	if err != nil {
 		panic(err)
@@ -85,5 +91,37 @@ func main() {
 		panic(err)
 	}
 
-	fmt.Println(weather)
+	// fmt.Println(weather)
+
+	location, curerrent, hours := weather.Location, weather.Current, weather.Forecast.Forecastday[0].Hour
+
+	fmt.Printf("%s, %s: %.0fC, %s\n",
+		location.Name,
+		location.Region,
+		curerrent.TempC,
+		curerrent.Condition.Text)
+
+
+		for _, hour := range hours {
+			date := time.Unix(int64(hour.TimeEpoch), 0)
+		
+			// Time now & future
+			if date.Before(time.Now()) {
+				continue
+			}
+		
+			message := fmt.Sprintf(
+				"Time: %s - %.0fC, %s, %.0f%% chance of rain\n",
+				date.Format("15:04"),
+				hour.TempC,
+				hour.Condition.Text,
+				hour.ChanceOfRain,
+			)
+		
+			if hour.ChanceOfRain < 40 {
+				color.Cyan(message)
+			} else {
+				color.Red(message)
+			}
+		}		
 }
