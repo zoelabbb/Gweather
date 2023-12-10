@@ -91,15 +91,14 @@ func main() {
 		panic(err)
 	}
 
-	// fmt.Println(weather)
-
 	location, curerrent, hours := weather.Location, weather.Current, weather.Forecast.Forecastday[0].Hour
 
-	fmt.Printf("%s, %s: %.0fC, %s\n",
-		location.Name,
-		location.Region,
-		curerrent.TempC,
-		curerrent.Condition.Text)
+	fmt.Printf("Weather Forecast for %s, %s (%s): %.0fC, %s\n\n",
+    location.Name,
+    location.Region,
+    location.Country,
+    curerrent.TempC,
+    curerrent.Condition.Text)
 
 
 		for _, hour := range hours {
@@ -111,7 +110,7 @@ func main() {
 			}
 		
 			message := fmt.Sprintf(
-				"Time: %s - %.0fC, %s, %.0f%% chance of rain\n",
+				"Time: %s \nTemp: %.0fC, %s \nChance of rain %.0f%% \n\n",
 				date.Format("15:04"),
 				hour.TempC,
 				hour.Condition.Text,
@@ -119,7 +118,9 @@ func main() {
 			)
 		
 			if hour.ChanceOfRain < 40 {
-				color.Cyan(message)
+				color.Green(message)
+			} else if hour.ChanceOfRain >= 40 && hour.ChanceOfRain <= 70 {
+				color.Yellow(message)
 			} else {
 				color.Red(message)
 			}
