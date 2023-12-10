@@ -1,6 +1,6 @@
 <div align="center">
   
-# `🌦 GWeather - A Golang Weather CLI`
+# 🌦 GWeather - A Golang Weather CLI
 GWeather is a command-line interface (CLI) written in Golang that provides weather forecasts using the WeatherAPI from RapidAPI.
 
 <p align="center">
