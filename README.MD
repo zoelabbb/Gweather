@@ -62,6 +62,6 @@ Configure the application by setting your RapidAPI key and host in the `.env` fi
 
 ## Contact
 
-For questions or suggestions, feel free to contact the maintainers:
+For questions or suggestions, feel free to contact me:
 
 - [Ryu as a Dev](mailto:alifryuuofficial@gmail.com)
