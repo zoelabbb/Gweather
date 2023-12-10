@@ -32,6 +32,8 @@ GWeather is a command-line interface (CLI) written in Golang that provides weath
    RAPID_API_HOST=weatherapi-com.p.rapidapi.com
    ```
 
+   Get your key and host from [RapidAPI Here](https://rapidapi.com/weatherapi/api/weatherapi-com)
+
 4. Build the application:
    ```bash
    go build -o Gweather
