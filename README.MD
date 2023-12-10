@@ -52,8 +52,15 @@ GWeather is a command-line interface (CLI) written in Golang that provides weath
 Run the application with an optional city parameter to get the weather forecast. If no city is provided, it defaults to **"Denpasar"**.
 
 ```bash
-Gweather Jakarta
+Gweather Denpasar
 ```
+
+<!-- Show Image output -->
+![Gweather Forecast](./img/output.png)
+The percentage chance of rain can vary depending on the data source and specific geographic area. However, in general :
+- Less than 40%: Low chance of rain. ( Green )
+- Between 40% - 70%: Chance of rain. ( Yellow )
+- Over 70%: High chance of rain. ( Red )
 
 ## Dependencies
 
