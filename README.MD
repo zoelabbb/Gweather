@@ -1,6 +1,18 @@
-# GWeather - A Golang Weather CLI
-
+<div align="center">
+  
+# `🌦 GWeather - A Golang Weather CLI`
 GWeather is a command-line interface (CLI) written in Golang that provides weather forecasts using the WeatherAPI from RapidAPI.
+
+<p align="center">
+  <img width=40% height=40% src="./img/cloud.gif" alt="cloud">
+</p>
+
+[![Sponsors](https://img.shields.io/badge/sponsor-30363D?style=flat&logo=GitHub-Sponsors&logoColor=#EA4AAA)](https://github.com/sponsors/zoelabbb)
+![Go](https://img.shields.io/badge/go-%2300ADD8.svg?style=flat&logo=go&logoColor=white)
+[![GitHub: zoelabbb](https://img.shields.io/github/followers/zoelabbb?label=follow&style=flat&logo=github&logoColor=white)](https://github.com/zoelabbb)
+
+</div>
+
 
 ## Installation
 
